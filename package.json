@@ -1,7 +1,7 @@
 {
   "name": "react-native-roller",
-  "version": "0.1.0",
-  "description": "roller component for React Native.",
+  "version": "0.1.1",
+  "description": "React Native component for rolling things.",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "files": [
@@ -41,6 +41,7 @@
     "react",
     "react-native",
     "rolling-text",
+    "rolling-bar",
     "roller"
   ],
   "license": "MIT"

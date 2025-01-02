@@ -1,7 +1,7 @@
 import { StyleProp, ViewStyle, TextStyle } from 'react-native';
 
 export interface RollerProps {
-  rows?: any[];
+  dataSource?: any[];
   // defaults to 1
   visibleRowsNum?: number;
   // defaults to 3000

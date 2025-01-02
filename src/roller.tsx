@@ -8,7 +8,7 @@ const RollingText: React.FC<RollerProps> = props => {
     style,
     itemStyle,
     textStyle,
-    rows = [],
+    dataSource = [],
     visibleRowsNum = 1,
     interval = 3000,
     rowHeight = 30,
@@ -21,7 +21,7 @@ const RollingText: React.FC<RollerProps> = props => {
     enableVisibleOffset = false,
   } = props;
 
-  const [data, setData] = useState(rows);
+  const [data, setData] = useState(dataSource);
   const [visibleData, setVisibleData] = useState<any[]>([]);
   const animationValue = useRef(new Animated.Value(0)).current;
   const fadeOutValue = useRef(new Animated.Value(1)).current;
@@ -31,7 +31,7 @@ const RollingText: React.FC<RollerProps> = props => {
   const nextItemIndexRef = useRef<number>(null);
 
   useEffect(() => {
-    const rowsLen = rows?.length || 0;
+    const rowsLen = dataSource?.length || 0;
 
     if (!rowsLen) return;
 
@@ -39,7 +39,7 @@ const RollingText: React.FC<RollerProps> = props => {
 
     if (rowsLen <= visibleRowsNum) {
       if (shouldRollValue && forceRoll) {
-        // when the number of rows is insufficient
+        // when the number of dataSource is insufficient
         // duplicate them multiple times until the number of rows is greater than the number of visible rows.
         const newData = completeData();
 
@@ -47,20 +47,20 @@ const RollingText: React.FC<RollerProps> = props => {
         setData(newData);
         setAnimationEnabled(true);
       } else {
-        setData(rows);
-        setVisibleData(rows.slice(0, visibleRowsNum + 1));
+        setData(dataSource);
+        setVisibleData(dataSource.slice(0, visibleRowsNum + 1));
       }
 
       return;
     }
 
-    setData(rows);
-    setVisibleData(rows.slice(0, visibleRowsNum + 1));
+    setData(dataSource);
+    setVisibleData(dataSource.slice(0, visibleRowsNum + 1));
 
     if (shouldRollValue) {
       setAnimationEnabled(true);
     }
-  }, [rows, visibleRowsNum, shouldRoll]);
+  }, [dataSource, visibleRowsNum, shouldRoll]);
 
   useEffect(() => {
     if (!animationEnabled) return;
@@ -121,16 +121,16 @@ const RollingText: React.FC<RollerProps> = props => {
   };
 
   const completeData = useCallback(() => {
-    let newData = [...rows];
-    let duplicateTimes = Math.floor(visibleRowsNum / rows.length);
+    let newData = [...dataSource];
+    let duplicateTimes = Math.floor(visibleRowsNum / dataSource.length);
 
     while (duplicateTimes) {
-      newData = newData.concat([...rows]);
+      newData = newData.concat([...dataSource]);
       duplicateTimes--;
     }
 
     return newData;
-  }, [rows, visibleRowsNum]);
+  }, [dataSource, visibleRowsNum]);
 
   const renderItem = (item: string, index: number) => {
     const isTop = index === 0;
@@ -152,17 +152,17 @@ const RollingText: React.FC<RollerProps> = props => {
   };
 
   const getContainerStyle = () => {
-    const containervisibleRowsNum = enableVisibleOffset ? visibleRowsNum + 1 : visibleRowsNum;
+    const containerVisibleRowsNum = enableVisibleOffset ? visibleRowsNum + 1 : visibleRowsNum;
     return [
       styles.container,
       style,
       {
-        height: (rowHeight + spaceBetween) * containervisibleRowsNum,
+        height: (rowHeight + spaceBetween) * containerVisibleRowsNum,
       },
     ];
   };
 
-  if (!rows?.length || !visibleData.length) return null;
+  if (!dataSource?.length || !visibleData.length) return null;
 
   const translateY = animationValue.interpolate({
     inputRange: [0, 1],
