@@ -1,0 +1,46 @@
+{
+  "name": "react-native-roller",
+  "version": "0.1.0",
+  "description": "roller component for React Native.",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "files": [
+    "lib"
+  ],
+  "scripts": {
+    "lint": "eslint 'src/**/*.{js,ts,tsx}'",
+    "lint:fix": "eslint 'src/**/*.{js,ts,tsx}' --fix",
+    "clean": "rm -rf lib",
+    "build": "npm run clean && tsc",
+    "prepublishOnly": "npm run lint && npm run build"
+  },
+  "repository": "https://github.com/superRaytin/react-native-roller",
+  "peerDependencies": {
+    "react": ">=17.0.0",
+    "react-native": ">=0.68.1",
+    "react-native-svg": ">=12.1.0"
+  },
+  "devDependencies": {
+    "@types/react": ">=17.0.0",
+    "@types/react-native": "0.68.1",
+    "@typescript-eslint/eslint-plugin": "^6.6.0",
+    "@typescript-eslint/parser": "^6.6.0",
+    "eslint": "^7.23.0",
+    "eslint-config-prettier": "^9.0.0",
+    "eslint-plugin-prettier": "^5.0.0",
+    "eslint-plugin-react": "^7.33.0",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-react-native": "^4.0.0",
+    "prettier": "^3.0.0",
+    "react": "17.0.2",
+    "react-native": "0.68.1",
+    "typescript": "^4.5.5"
+  },
+  "keywords": [
+    "react",
+    "react-native",
+    "rolling-text",
+    "roller"
+  ],
+  "license": "MIT"
+}
