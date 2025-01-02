@@ -12,7 +12,8 @@
     "lint:fix": "eslint 'src/**/*.{js,ts,tsx}' --fix",
     "clean": "rm -rf lib",
     "build": "npm run clean && tsc",
-    "prepublishOnly": "npm run lint && npm run build"
+    "prepublishOnly": "npm run lint && npm run build",
+    "postpublish": "PACKAGE_VERSION=$(cat package.json | grep \\\"version\\\" | head -1 | awk -F: '{ print $2 }' | sed 's/[\",]//g' | tr -d '[[:space:]]') && git tag $PACKAGE_VERSION && git push --tags"
   },
   "repository": "https://github.com/superRaytin/react-native-roller",
   "peerDependencies": {
